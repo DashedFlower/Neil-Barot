@@ -11,9 +11,8 @@
 
   <style>
     :root{
-      /* solid dark blue background and a slightly different blue for modal-open state */
-      --page-bg: #042b5f;         /* default page background (solid dark blue) */
-      --page-bg-modal: #021730;   /* background when modal is open (darker blue) */
+      --page-bg: #042b5f;
+      --page-bg-modal: #021730;
       --text: #e6eef8;
       --muted: #9aa3b2;
       --accent:#7c5cff;
@@ -26,13 +25,11 @@
     /* reset + base */
     *{box-sizing:border-box}
     html,body{height:100%}
-    html{
-      overscroll-behavior-y: contain; /* prevent bounce/overscroll */
-    }
+    html{ overscroll-behavior-y: contain; }
     body{
       margin:0;
       font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: var(--page-bg); /* SOLID background */
+      background: var(--page-bg);
       color:var(--text);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
@@ -41,13 +38,10 @@
       display:flex;
       justify-content:center;
       min-height:100vh;
-      transition: background-color .28s ease; /* smooth color change when modal opens */
+      transition: background-color .28s ease;
       overflow-y:auto;
     }
-    /* when modal is open we add class "modal-open" to body (JS) */
-    body.modal-open{
-      background: var(--page-bg-modal) !important;
-    }
+    body.modal-open{ background: var(--page-bg-modal) !important; }
 
     /* container */
     .wrap{
@@ -65,41 +59,53 @@
       z-index:1;
       align-items:start;
     }
-
     @media (max-width:980px){
       .wrap{grid-template-columns:1fr;padding:22px;gap:20px}
     }
 
-    /* Hero */
+    /* ----- HERO: centered photo ----- */
     .hero{
       grid-column:1 / -1;
-      display:grid;
-      grid-template-columns: 120px 1fr;
-      gap:20px;
+      display:flex;
+      flex-direction:column;
       align-items:center;
-      padding:16px;
+      gap:18px;
+      padding:18px;
       border-radius:12px;
       border:1px solid var(--card-border);
       margin-bottom:4px;
       background: rgba(255,255,255,0.01);
-    }
-    @media (max-width:720px){
-      .hero{ grid-template-columns: 1fr; text-align:center }
+      text-align:center;
     }
 
     .photo{
-      width:120px;height:120px;border-radius:16px;overflow:hidden;border:2px solid rgba(255,255,255,0.04);
+      width:140px;height:140px;border-radius:18px;overflow:hidden;border:2px solid rgba(255,255,255,0.04);
       display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),#ff6b88);
-      flex-shrink:0;margin-left:6px;
+      flex-shrink:0;
     }
     .photo img{ width:100%; height:100%; object-fit:cover; display:block }
 
-    .hero-content h1{ margin:0 0 10px 0; font-size:34px; line-height:1.03; font-weight:800; color:var(--text) }
-    .hero-content .subtitle{ margin:0 0 14px 0; color:var(--muted); font-size:16px; max-width:68ch }
-    .pill{ padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:13px;color:var(--muted); border:1px solid rgba(255,255,255,0.02); display:inline-block;margin-right:10px; }
+    .hero h1{
+      margin:0;font-size:36px;line-height:1.02;font-weight:800;color:var(--text);
+    }
+    .hero .subtitle{
+      margin:0;color:var(--muted);font-size:16px;max-width:64ch;
+    }
+    .pills{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:8px }
+    .pill{ padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:13px;color:var(--muted); border:1px solid rgba(255,255,255,0.02); }
 
-    /* Main content */
+    /* ----- Tiles: create separation for About and Projects ----- */
+    .tile{
+      background: rgba(255,255,255,0.01);
+      border-radius:12px;
+      padding:18px;
+      border:1px solid var(--card-border);
+      box-shadow: 0 12px 34px rgba(2,6,15,0.25);
+      margin-bottom:12px;
+    }
+
     main{ padding-right:6px }
+
     h2.section-title{ margin:0 0 12px 0; font-size:16px; font-weight:700; color:var(--text) }
 
     .projects{
@@ -107,9 +113,7 @@
       grid-template-columns:repeat(2,1fr);
       gap:18px;
     }
-    @media (max-width:760px){
-      .projects{ grid-template-columns:1fr; }
-    }
+    @media (max-width:760px){ .projects{ grid-template-columns:1fr; } }
 
     .card{
       background: rgba(255,255,255,0.01);
@@ -134,7 +138,7 @@
     .meta h3{ margin:0 0 8px 0; font-size:16px; color:var(--text) }
     .meta p{ margin:0; color:var(--muted); font-size:14px }
 
-    /* Sidebar */
+    /* sidebar */
     aside.sidebar{
       background: rgba(255,255,255,0.01);
       border-radius:12px;
@@ -155,16 +159,14 @@
     .name{ font-weight:800; font-size:18px; color:var(--text) }
     .role{ color:var(--muted); font-size:13px; margin-top:4px }
 
-    footer.site-footer{ grid-column: 1 / -1; margin-top:18px; text-align:center; color:var(--muted); font-size:13px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.02) }
-
-    /* Modal overlay/backdrop: semi-transparent so the changed body background shows through */
+    /* modal */
     .modal-backdrop{
       position:fixed;
       inset:0;
       display:none;
       align-items:center;
       justify-content:center;
-      background: rgba(2, 16, 40, 0.45); /* intentionally semi-transparent so body background change is visible */
+      background: rgba(2, 16, 40, 0.45);
       z-index:9999;
       padding:20px;
       transition: background-color .18s ease;
@@ -181,15 +183,14 @@
     .modal header{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
     .close-btn{ background:transparent; border:0; font-weight:700; font-size:18px; cursor:pointer; color:var(--muted) }
 
-    /* helpers */
     .muted{ color:var(--muted) }
     .small{ font-size:13px }
   </style>
 </head>
 <body>
   <div class="wrap" role="main">
-    <!-- Hero -->
-    <div class="hero" aria-label="Hero about">
+    <!-- HERO: centered photo and larger about area -->
+    <div class="hero">
       <div class="photo" aria-hidden="true">
         <img src="images/neil.jpg" alt="Photo of Neil Barot" loading="eager">
       </div>
@@ -197,8 +198,10 @@
       <div class="hero-content">
         <h1>Neil Barot</h1>
         <p class="subtitle">Junior at Piscataway High School interested in medical and engineering fields with a love for making things — hardware + software, leadership, and practical problem-solving.</p>
-        <div>
-          <span class="pill">Junior • Piscataway High School</span>
+
+        <div class="pills" aria-hidden="true">
+          <!-- removed "Junior" from this badge as requested -->
+          <span class="pill">Piscataway High School</span>
           <span class="pill">Arduino • 3D printing • Servers</span>
         </div>
       </div>
@@ -206,11 +209,17 @@
 
     <!-- Main column -->
     <main class="main" aria-labelledby="projects-heading">
-      <section id="projects">
+      <!-- About tile: separated visually -->
+      <section class="tile" id="about" aria-labelledby="about-heading">
+        <h2 class="section-title" id="about-heading">About</h2>
+        <p class="muted small">I'm a junior at Piscataway High School interested in medical and engineering fields with a love for making things. I enjoy leading teams and building practical projects — everything from Arduino sensor systems and 3D-printed parts to media servers and websites.</p>
+      </section>
+
+      <!-- Projects tile: separated visually -->
+      <section class="tile" id="projects" aria-labelledby="projects-heading">
         <h2 class="section-title" id="projects-heading">Selected projects</h2>
 
         <div class="projects" aria-live="polite">
-          <!-- Projects (unchanged content) -->
           <article class="card" tabindex="0" role="button"
             data-project='{"title":"Piscataway Robotics — Team Captain","short":"Team captain for Piscataway High School competitive robotics team.","details":"Led competitive robotics team as team captain: managed build cycles, mentored new members, coordinated strategy and matches. Worked with motor controllers, sensors, and basic autonomous routines. Learned leadership, mechanical assembly, and event preparation."}'>
             <div class="thumb" aria-hidden="true"><img src="images/robot.jpg" alt="Piscataway robotics competition robot" loading="lazy"></div>
@@ -248,15 +257,16 @@
           </article>
         </div>
       </section>
-
-      <footer class="site-footer" aria-label="Footer note">© <strong>Neil Barot</strong> — Projects & personal work</footer>
     </main>
 
-    <!-- Sidebar -->
+    <!-- Sidebar: removed the "Junior" badge from here -->
     <aside class="sidebar" aria-labelledby="profile-heading">
       <div style="display:flex;gap:12px;align-items:center">
         <div class="sidebar-photo" aria-hidden="true"><img src="images/neil.jpg" alt="Neil Barot profile photo" loading="lazy"></div>
-        <div><div class="name">Neil Barot</div><div class="role">Junior • Developer • Maker</div></div>
+        <div>
+          <div class="name">Neil Barot</div>
+          <div class="role">Developer • Maker</div>
+        </div>
       </div>
 
       <div>
@@ -286,10 +296,6 @@
   </div>
 
   <script>
-    /* Modal & scroll-lock:
-       - Adds 'modal-open' class to body so the background color behind the semi-transparent overlay changes.
-       - Keeps a robust scroll-lock that saves/restores scroll position.
-    */
     (function(){
       const cards = document.querySelectorAll('.card[data-project]');
       const backdrop = document.getElementById('modal-backdrop');
@@ -307,32 +313,25 @@
         titleEl.textContent = data.title || 'Project';
         bodyEl.innerHTML = renderDetails(data.details || data.short || 'No details yet');
 
-        // Save scroll position and lock page (robust)
+        // save scroll and lock
         scrollPosition = window.scrollY || document.documentElement.scrollTop;
-        // lock scroll by fixing html position
         document.documentElement.style.top = `-${scrollPosition}px`;
         document.documentElement.style.position = 'fixed';
         document.documentElement.style.width = '100%';
 
-        // Add modal-open class to body so background color behind overlay changes
+        // change background color behind overlay and show semi-transparent backdrop
         document.body.classList.add('modal-open');
-
-        // show backdrop (it's semi-transparent so the body color change is visible)
         backdrop.style.display = 'flex';
         backdrop.setAttribute('aria-hidden','false');
 
-        // focus first close button
         closeBtns[0].focus();
       }
 
       function closeModal(){
         backdrop.style.display = 'none';
         backdrop.setAttribute('aria-hidden','true');
-
-        // remove modal-open class to restore original background color
         document.body.classList.remove('modal-open');
 
-        // restore scroll position & unlock
         document.documentElement.style.position = '';
         document.documentElement.style.top = '';
         document.documentElement.style.width = '';
@@ -341,27 +340,16 @@
 
       cards.forEach(card => {
         card.addEventListener('click', () => {
-          try {
-            const data = JSON.parse(card.getAttribute('data-project'));
-            openModal(data);
-          } catch(e) {
-            openModal({title: card.querySelector('h3')?.textContent || 'Project', details: card.querySelector('p')?.textContent || ''});
-          }
+          try { const data = JSON.parse(card.getAttribute('data-project')); openModal(data); }
+          catch(e) { openModal({title: card.querySelector('h3')?.textContent || 'Project', details: card.querySelector('p')?.textContent || ''}); }
         });
-
-        card.addEventListener('keydown', (e) => {
-          if(e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            card.click();
-          }
-        });
+        card.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); } });
       });
 
       backdrop.addEventListener('click', (e) => { if(e.target === backdrop) closeModal(); });
       closeBtns.forEach(b => b && b.addEventListener('click', closeModal));
       document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
 
-      // Safety: ensure page isn't left locked if tab visibility changes
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible' && backdrop.style.display === 'none') {
           document.documentElement.style.position = '';
