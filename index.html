@@ -1,200 +1,470 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Neil Barot | Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title><!-- FILL: Your Name — Projects -->Your Name — Projects</title>
 
-<style>
+  <!-- Meta for social previews -->
+  <meta name="description" content="<!-- FILL: Short one-line description of your projects -->A short description of my personal projects and experiments." />
 
-body{
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-    line-height:1.6;
-    background:#f4f4f4;
-    color:#333;
-}
+  <!-- Google Font (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-header{
-    background:#111;
-    color:white;
-    padding:20px 0;
-}
+  <style>
+    :root{
+      --bg1: #ffecd2;
+      --bg2: #fcb69f;
+      --accent: #5e60ce;
+      --accent-2: #ff6b6b;
+      --card: rgba(255,255,255,0.85);
+      --muted: #6b7280;
+      --radius: 12px;
+      --max-width: 1100px;
+      --gap: 18px;
+    }
 
-nav{
-    width:90%;
-    margin:auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
+    /* Reset-ish */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:#111827;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:36px 20px;
+      display:flex;
+      justify-content:center;
+      align-items:stretch;
+      min-height:100vh;
+    }
 
-nav ul{
-    list-style:none;
-    display:flex;
-    gap:20px;
-}
+    .wrap{
+      width:100%;
+      max-width:var(--max-width);
+      margin:0 auto;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.76));
+      border-radius:18px;
+      box-shadow:0 20px 40px rgba(16,24,40,0.12);
+      padding:28px;
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap: var(--gap);
+      align-items:start;
+    }
 
-nav a{
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-}
+    /* Responsive stack */
+    @media (max-width:980px){
+      .wrap{grid-template-columns:1fr}
+    }
 
-.hero{
-    text-align:center;
-    padding:80px 20px;
-    background:white;
-}
+    header.site-header{
+      grid-column: 1 / -1;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:4px;
+    }
 
-.hero h1{
-    font-size:3rem;
-}
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      text-decoration:none;
+      color:inherit;
+    }
 
-section{
-    width:85%;
-    margin:auto;
-    padding:60px 0;
-}
+    .logo{
+      width:56px;height:56px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      color:white;
+      font-weight:800;
+      font-size:20px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
 
-.projects{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
+    .site-title{
+      font-size:18px;
+      font-weight:700;
+      letter-spacing: -0.2px;
+    }
+    .site-tag{
+      font-size:13px;
+      color:var(--muted);
+      margin-top:2px;
+    }
 
-.card{
-    background:white;
-    padding:20px;
-    border-radius:8px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
+    /* Left column content */
+    .main{
+      padding-right:6px;
+    }
 
-.skills{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-}
+    .hero{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      margin-bottom:18px;
+    }
 
-.skill{
-    background:#111;
-    color:white;
-    padding:8px 12px;
-    border-radius:5px;
-}
+    .hero .intro{
+      flex:1;
+    }
 
-footer{
-    background:#111;
-    color:white;
-    text-align:center;
-    padding:20px;
-}
+    .hero h1{
+      margin:0 0 6px 0;
+      font-size:28px;
+      line-height:1.05;
+    }
 
-@media(max-width:600px){
+    .hero p.lead{
+      margin:0;
+      color:var(--muted);
+    }
 
-.hero h1{
-    font-size:2rem;
-}
+    .cta-row{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
 
-nav ul{
-    flex-direction:column;
-}
+    .btn{
+      border:0;
+      background:linear-gradient(90deg,var(--accent),#7b61ff);
+      color:white;
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 6px 16px rgba(94,96,206,0.18);
+      text-decoration:none;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+    }
 
-}
+    .btn.secondary{
+      background:transparent;
+      color:var(--accent);
+      border:1px solid rgba(94,96,206,0.12);
+      box-shadow:none;
+    }
 
-</style>
+    /* Projects grid */
+    .projects{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+    @media (max-width:680px){ .projects{grid-template-columns:1fr} }
+
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:12px;
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      box-shadow: 0 8px 20px rgba(12,15,20,0.04);
+      transition:transform .18s ease, box-shadow .18s ease;
+      cursor:pointer;
+    }
+    .card:focus{outline:3px solid rgba(99,102,241,0.12)}
+    .card:hover{ transform:translateY(-4px); box-shadow:0 16px 30px rgba(12,15,20,0.08) }
+
+    .thumb{
+      width:78px;height:64px;border-radius:10px;flex:0 0 78px;
+      display:grid;place-items:center;color:white;font-weight:700;
+      background:linear-gradient(135deg, rgba(94,96,206,1), rgba(255,107,107,0.9));
+      box-shadow: inset 0 -6px 18px rgba(0,0,0,0.06);
+    }
+
+    .card .meta{
+      flex:1;
+    }
+    .card h3{margin:0 0 6px 0;font-size:15px}
+    .card p{margin:0;color:var(--muted);font-size:13px}
+
+    /* Sidebar */
+    aside.sidebar{
+      background:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.9));
+      border-radius:12px;
+      padding:14px;
+      height:fit-content;
+      position:sticky;
+      top:36px;
+      box-shadow: 0 8px 20px rgba(12,15,20,0.04);
+    }
+
+    .profile{
+      display:flex; gap:12px; align-items:center; margin-bottom:12px;
+    }
+    .avatar{
+      width:64px;height:64px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent-2),var(--accent));
+      color:white;display:grid;place-items:center;font-weight:800;font-size:20px;
+    }
+    .profile .who small{ color:var(--muted); display:block; margin-top:2px; font-size:13px }
+
+    .skills{
+      display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;
+    }
+    .skill{
+      font-size:13px;padding:6px 10px;border-radius:999px;background:rgba(94,96,206,0.08);color:var(--accent);
+    }
+
+    .contact{
+      margin-top:12px;
+      font-size:14px;
+      color:var(--muted);
+    }
+
+    footer.site-footer{
+      grid-column: 1 / -1;
+      margin-top:14px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed;inset:0;display:none;align-items:center;justify-content:center;
+      background:linear-gradient(rgba(6,6,10,0.45),rgba(6,6,10,0.45));z-index:60;padding:20px;
+    }
+    .modal{
+      width:100%;max-width:780px;background:white;padding:18px;border-radius:14px;box-shadow:0 30px 70px rgba(8,10,20,0.4);
+    }
+    .modal header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .close-btn{background:transparent;border:0;font-weight:700;font-size:16px;cursor:pointer;color:var(--muted)}
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    .small{font-size:13px}
+    .label{font-size:12px;color:var(--muted);margin-bottom:6px;display:block}
+  </style>
 </head>
-
 <body>
+  <!--
+    IMPORTANT: Replace visible placeholders:
+      - Title and meta description near the top
+      - Any <!-- FILL: ... --> or data-fill attributes
+      - Project cards in the Projects section
+      - Contact email in the sidebar
+  -->
 
-<header>
-<nav>
-<h2>Neil Barot</h2>
+  <div class="wrap" role="main">
+    <header class="site-header" aria-label="Site header">
+      <a class="brand" href="#" aria-label="Homepage">
+        <div class="logo" aria-hidden="true">NB</div>
+        <div>
+          <div class="site-title" data-fill="site-title">Your Name</div>
+          <div class="site-tag" data-fill="site-tag">Personal projects & experiments</div>
+        </div>
+      </a>
 
-<ul>
-<li><a href="#about">About</a></li>
-<li><a href="#projects">Projects</a></li>
-<li><a href="#skills">Skills</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
+      <nav aria-label="Primary actions">
+        <a class="btn" href="#projects">Projects</a>
+        <a class="btn secondary" href="#contact">Contact</a>
+      </nav>
+    </header>
 
-</nav>
-</header>
+    <!-- Main column -->
+    <section class="main" aria-labelledby="intro-heading">
+      <div class="hero" role="region" aria-label="Intro">
+        <div class="intro">
+          <h1 id="intro-heading" data-fill="hero-heading">Hi — I'm <!-- FILL: Your first name -->Your Name.</h1>
+          <p class="lead" data-fill="hero-sub">I'm a student / maker / developer. I build small apps, experiments, and projects that teach me something new.</p>
 
-<div class="hero">
-<h1>Hello, I'm Neil</h1>
-<p>Student | Developer | STEM Enthusiast</p>
-</div>
+          <div class="cta-row" role="toolbar" aria-label="Call to action">
+            <a class="btn" href="#projects" aria-label="See projects">See projects</a>
+            <a class="btn secondary" href="#about" aria-label="Learn more about me">About me</a>
+          </div>
+        </div>
 
-<section id="about">
+        <!-- decorative / optional -->
+        <div aria-hidden="true" style="min-width:140px; text-align:center;">
+          <!-- Simple colorful SVG illustration -->
+          <svg width="140" height="120" viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+            <rect x="0" y="0" width="140" height="120" rx="12" fill="url(#g)" />
+            <defs>
+              <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#7b61ff"/>
+                <stop offset="1" stop-color="#ff6b6b"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
 
-<h2>About Me</h2>
+      <!-- About -->
+      <section id="about" aria-labelledby="about-heading" style="margin-bottom:16px">
+        <h2 id="about-heading" style="font-size:16px;margin:0 0 8px 0">About</h2>
+        <p class="muted small" data-fill="about-paragraph">
+          <!-- FILL: Write 1-3 sentences about yourself, what you like to build, or your focus areas -->
+          I'm a high school student interested in web development, physics, and chemistry. I enjoy building small tools and experiments that visualize concepts clearly.
+        </p>
+      </section>
 
-<p>
-I am a student interested in technology, programming, and STEM research.
-This portfolio showcases my projects, technical skills, and work.
-</p>
+      <!-- Projects -->
+      <section id="projects" aria-labelledby="projects-heading" style="margin-bottom:14px">
+        <h2 id="projects-heading" style="font-size:16px;margin:0 0 10px 0">Projects</h2>
 
-</section>
+        <div class="projects" aria-live="polite">
+          <!-- Repeat / duplicate these cards for each project. Use data attributes to fill. -->
+          <article class="card" tabindex="0" role="button" data-project='{"title":"Project One","short":"A one-line summary of project one.","details":"<!-- FILL: Longer explanation about Project One. What tech, what you learned. -->Detailed info about Project One."}'>
+            <div class="thumb" aria-hidden="true">P1</div>
+            <div class="meta">
+              <h3 data-fill="project1-title">Project One</h3>
+              <p data-fill="project1-short">A short description of Project One. <!-- FILL: one line summary --></p>
+            </div>
+          </article>
 
-<section id="projects">
+          <article class="card" tabindex="0" role="button" data-project='{"title":"Project Two","short":"A one-line summary of project two.","details":"<!-- FILL: Longer explanation about Project Two. -->Detailed info about Project Two."}'>
+            <div class="thumb" aria-hidden="true">P2</div>
+            <div class="meta">
+              <h3 data-fill="project2-title">Project Two</h3>
+              <p data-fill="project2-short">A short description of Project Two. <!-- FILL: one line summary --></p>
+            </div>
+          </article>
 
-<h2>Projects</h2>
+          <article class="card" tabindex="0" role="button" data-project='{"title":"Project Three","short":"A one-line summary of project three.","details":"<!-- FILL: Longer explanation about Project Three. -->Detailed info about Project Three."}'>
+            <div class="thumb" aria-hidden="true">P3</div>
+            <div class="meta">
+              <h3 data-fill="project3-title">Project Three</h3>
+              <p data-fill="project3-short">A short description of Project Three. <!-- FILL: one line summary --></p>
+            </div>
+          </article>
 
-<div class="projects">
+          <article class="card" tabindex="0" role="button" data-project='{"title":"Project Four","short":"A one-line summary of project four.","details":"<!-- FILL: Longer explanation about Project Four. -->Detailed info about Project Four."}'>
+            <div class="thumb" aria-hidden="true">P4</div>
+            <div class="meta">
+              <h3 data-fill="project4-title">Project Four</h3>
+              <p data-fill="project4-short">A short description of Project Four. <!-- FILL: one line summary --></p>
+            </div>
+          </article>
+        </div>
+      </section>
 
-<div class="card">
-<h3>Project One</h3>
-<p>Short description of your project.</p>
-<a href="#">View Project</a>
-</div>
+      <footer class="site-footer" aria-label="Footer note">
+        <div>Made by <strong data-fill="footer-name">Your Name</strong> • <span class="small muted">Feel free to customize this page</span></div>
+      </footer>
+    </section>
 
-<div class="card">
-<h3>Project Two</h3>
-<p>Short description of your project.</p>
-<a href="#">View Project</a>
-</div>
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-labelledby="profile-heading">
+      <div class="profile">
+        <div class="avatar" aria-hidden="true">YN</div>
+        <div class="who">
+          <div style="font-weight:700" data-fill="sidebar-name">Your Name</div>
+          <small data-fill="sidebar-role">Student • Developer • Maker</small>
+        </div>
+      </div>
 
-<div class="card">
-<h3>Project Three</h3>
-<p>Short description of your project.</p>
-<a href="#">View Project</a>
-</div>
+      <div>
+        <label class="label" for="skills">Skills</label>
+        <div id="skills" class="skills">
+          <span class="skill">HTML</span>
+          <span class="skill">CSS</span>
+          <span class="skill">JavaScript</span>
+          <span class="skill">Python</span>
+          <!-- FILL: add more skills -->
+        </div>
+      </div>
 
-</div>
+      <div style="margin-top:14px;">
+        <label class="label" id="contact">Contact</label>
+        <div class="contact">
+          <div class="small muted">Email</div>
+          <div style="margin-top:4px">
+            <!-- FILL: replace with your email address -->
+            <a href="mailto:your.email@example.com" style="font-weight:600;color:var(--accent)">your.email@example.com</a>
+          </div>
 
-</section>
+          <div style="margin-top:10px" class="small muted">Social</div>
+          <div style="margin-top:6px">
+            <!-- Optional: replace hrefs with your profiles -->
+            <a class="small" href="#" style="display:inline-block;margin-right:8px;color:var(--muted)">GitHub</a>
+            <a class="small" href="#" style="display:inline-block;margin-right:8px;color:var(--muted)">LinkedIn</a>
+            <a class="small" href="#" style="display:inline-block;color:var(--muted)">Twitter</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
 
-<section id="skills">
+  <!-- Modal (hidden by default) -->
+  <div id="modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document" aria-labelledby="modal-title">
+      <header>
+        <h3 id="modal-title">Project title</h3>
+        <button class="close-btn" aria-label="Close modal" id="modal-close">✕</button>
+      </header>
+      <div id="modal-body" style="margin-top:12px" class="muted small">
+        Project details...
+      </div>
+      <div style="margin-top:14px; text-align:right;">
+        <button class="btn secondary" id="modal-close-2">Close</button>
+      </div>
+    </div>
+  </div>
 
-<h2>Skills</h2>
+  <script>
+    // Simple accessible modal behavior for project cards
+    (function(){
+      const cards = document.querySelectorAll('.card[data-project]');
+      const backdrop = document.getElementById('modal-backdrop');
+      const titleEl = document.getElementById('modal-title');
+      const bodyEl = document.getElementById('modal-body');
+      const closeBtns = [document.getElementById('modal-close'), document.getElementById('modal-close-2')];
 
-<div class="skills">
+      function openModal(data){
+        titleEl.textContent = data.title || 'Project';
+        // keep HTML in details (allows you to paste formatted text) but sanitize in production
+        bodyEl.innerHTML = data.details || data.short || 'No details yet';
+        backdrop.style.display = 'flex';
+        backdrop.setAttribute('aria-hidden','false');
+        // trap focus minimally
+        closeBtns[0].focus();
+      }
 
-<span class="skill">HTML</span>
-<span class="skill">CSS</span>
-<span class="skill">JavaScript</span>
-<span class="skill">Python</span>
-<span class="skill">Git</span>
+      function closeModal(){
+        backdrop.style.display = 'none';
+        backdrop.setAttribute('aria-hidden','true');
+      }
 
-</div>
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          try{
+            const data = JSON.parse(card.getAttribute('data-project'));
+            openModal(data);
+          }catch(e){
+            openModal({title: card.querySelector('h3')?.textContent || 'Project', details: card.querySelector('p')?.textContent || ''});
+          }
+        });
+        card.addEventListener('keydown', (e) => {
+          if(e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            card.click();
+          }
+        });
+      });
 
-</section>
-
-<section id="contact">
-
-<h2>Contact</h2>
-
-<p>Email: your.email@example.com</p>
-<p>GitHub: <a href="https://github.com/yourusername">github.com/yourusername</a></p>
-
-</section>
-
-<footer>
-
-<p>© 2026 Neil Barot</p>
-
-</footer>
-
+      backdrop.addEventListener('click', (e) => {
+        if(e.target === backdrop) closeModal();
+      });
+      closeBtns.forEach(b => b && b.addEventListener('click', closeModal));
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape') closeModal();
+      });
+    })();
+  </script>
 </body>
 </html>
