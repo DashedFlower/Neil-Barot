@@ -10,13 +10,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <style>
-    /* ---------- Layout & theme ---------- */
     :root{
-      --bg:#071025;
-      --text:#e6eef8;
-      --muted:#9aa3b2;
+      /* solid dark blue background and a slightly different blue for modal-open state */
+      --page-bg: #042b5f;         /* default page background (solid dark blue) */
+      --page-bg-modal: #021730;   /* background when modal is open (darker blue) */
+      --text: #e6eef8;
+      --muted: #9aa3b2;
       --accent:#7c5cff;
-      --accent-2:#ff6b88;
       --card-border: rgba(255,255,255,0.03);
       --radius:14px;
       --max-width:1100px;
@@ -27,13 +27,12 @@
     *{box-sizing:border-box}
     html,body{height:100%}
     html{
-      /* Prevent overscroll/bounce on mobile so you can't scroll past content */
-      overscroll-behavior-y: contain;
+      overscroll-behavior-y: contain; /* prevent bounce/overscroll */
     }
     body{
       margin:0;
       font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#041029 0%, #07172a 60%);
+      background: var(--page-bg); /* SOLID background */
       color:var(--text);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
@@ -42,10 +41,15 @@
       display:flex;
       justify-content:center;
       min-height:100vh;
+      transition: background-color .28s ease; /* smooth color change when modal opens */
       overflow-y:auto;
     }
+    /* when modal is open we add class "modal-open" to body (JS) */
+    body.modal-open{
+      background: var(--page-bg-modal) !important;
+    }
 
-    /* main container */
+    /* container */
     .wrap{
       width:100%;
       max-width:var(--max-width);
@@ -55,11 +59,10 @@
       grid-template-columns: 1fr 360px;
       gap: var(--gap);
       box-shadow: 0 30px 90px rgba(2,6,23,0.6);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      background: rgba(255,255,255,0.02);
       padding:32px;
-      position:relative; /* stacking context */
+      position:relative;
       z-index:1;
-      /* ensure container does not create extra vertical scroll beyond its content */
       align-items:start;
     }
 
@@ -67,7 +70,7 @@
       .wrap{grid-template-columns:1fr;padding:22px;gap:20px}
     }
 
-    /* ---------- Hero / About (bigger top about area) ---------- */
+    /* Hero */
     .hero{
       grid-column:1 / -1;
       display:grid;
@@ -78,7 +81,7 @@
       border-radius:12px;
       border:1px solid var(--card-border);
       margin-bottom:4px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      background: rgba(255,255,255,0.01);
     }
     @media (max-width:720px){
       .hero{ grid-template-columns: 1fr; text-align:center }
@@ -86,34 +89,19 @@
 
     .photo{
       width:120px;height:120px;border-radius:16px;overflow:hidden;border:2px solid rgba(255,255,255,0.04);
-      display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),#ff6b88);
       flex-shrink:0;margin-left:6px;
     }
     .photo img{ width:100%; height:100%; object-fit:cover; display:block }
 
-    .hero-content h1{
-      margin:0 0 10px 0;
-      font-size:34px;
-      line-height:1.03;
-      font-weight:800;
-      color:var(--text);
-    }
-    .hero-content .subtitle{
-      margin:0 0 14px 0;
-      color:var(--muted);
-      font-size:16px;
-      max-width:68ch;
-    }
-    .pill{
-      padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:13px;color:var(--muted);
-      border:1px solid rgba(255,255,255,0.02);
-      display:inline-block;margin-right:10px;
-    }
+    .hero-content h1{ margin:0 0 10px 0; font-size:34px; line-height:1.03; font-weight:800; color:var(--text) }
+    .hero-content .subtitle{ margin:0 0 14px 0; color:var(--muted); font-size:16px; max-width:68ch }
+    .pill{ padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:13px;color:var(--muted); border:1px solid rgba(255,255,255,0.02); display:inline-block;margin-right:10px; }
 
-    /* ---------- Main content (projects) ---------- */
+    /* Main content */
     main{ padding-right:6px }
-
     h2.section-title{ margin:0 0 12px 0; font-size:16px; font-weight:700; color:var(--text) }
+
     .projects{
       display:grid;
       grid-template-columns:repeat(2,1fr);
@@ -124,7 +112,7 @@
     }
 
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      background: rgba(255,255,255,0.01);
       border-radius:12px;
       padding:14px;
       display:flex;
@@ -135,24 +123,20 @@
       cursor:pointer;
       min-height:120px;
       position:relative;
-      z-index:0; /* ensures cards sit below the sidebar when necessary */
+      z-index:0;
     }
     .card:focus{ outline:3px solid rgba(124,92,255,0.12); transform: translateY(-6px); z-index:2 }
     .card:hover{ transform: translateY(-6px); box-shadow: 0 18px 60px rgba(2,6,15,0.65); z-index:2 }
 
-    .thumb{
-      width:128px;height:92px;border-radius:10px;flex:0 0 128px;overflow:hidden;
-      display:block;border:1px solid rgba(255,255,255,0.02);
-      background:#081229;
-    }
+    .thumb{ width:128px;height:92px;border-radius:10px;flex:0 0 128px;overflow:hidden; display:block;border:1px solid rgba(255,255,255,0.02); background:#081229 }
     .thumb img{ width:100%; height:100%; object-fit:cover; display:block }
 
     .meta h3{ margin:0 0 8px 0; font-size:16px; color:var(--text) }
     .meta p{ margin:0; color:var(--muted); font-size:14px }
 
-    /* ---------- Sidebar (sticky) ---------- */
+    /* Sidebar */
     aside.sidebar{
-      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      background: rgba(255,255,255,0.01);
       border-radius:12px;
       padding:18px;
       position:sticky;
@@ -162,36 +146,44 @@
       display:flex;
       flex-direction:column;
       gap:14px;
-      z-index:3; /* make sure sidebar sits above cards */
+      z-index:3;
       align-self:start;
       min-height:80px;
     }
-
-    /* ensure sidebar does not cause overlap: cards get higher z-index while hovered/focused (see .card hover/focus) */
-
-    .sidebar-photo{ width:72px;height:72px;border-radius:12px;overflow:hidden;border:2px solid rgba(255,255,255,0.04); }
+    .sidebar-photo{ width:72px;height:72px;border-radius:12px;overflow:hidden;border:2px solid rgba(255,255,255,0.04) }
     .sidebar-photo img{ width:100%; height:100%; object-fit:cover; display:block }
-
     .name{ font-weight:800; font-size:18px; color:var(--text) }
     .role{ color:var(--muted); font-size:13px; margin-top:4px }
 
-    /* ---------- Footer ---------- */
     footer.site-footer{ grid-column: 1 / -1; margin-top:18px; text-align:center; color:var(--muted); font-size:13px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.02) }
 
-    /* ---------- Modal fixes & scroll-lock robustness ---------- */
-    .modal-backdrop{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:linear-gradient(rgba(2,6,23,0.7),rgba(2,6,23,0.7)); z-index:9999; padding:20px; }
-    .modal{ width:100%; max-width:840px; background:linear-gradient(180deg,#061021,#07172a); padding:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.03); box-shadow: 0 30px 90px rgba(2,6,23,0.8) }
+    /* Modal overlay/backdrop: semi-transparent so the changed body background shows through */
+    .modal-backdrop{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background: rgba(2, 16, 40, 0.45); /* intentionally semi-transparent so body background change is visible */
+      z-index:9999;
+      padding:20px;
+      transition: background-color .18s ease;
+    }
+    .modal{
+      width:100%;
+      max-width:840px;
+      background: linear-gradient(180deg,#061021,#07172a);
+      padding:20px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 30px 90px rgba(2,6,23,0.8);
+    }
     .modal header{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
     .close-btn{ background:transparent; border:0; font-weight:700; font-size:18px; cursor:pointer; color:var(--muted) }
 
-    /* small helpers */
+    /* helpers */
     .muted{ color:var(--muted) }
     .small{ font-size:13px }
-
-    /* Fix possible extra bottom whitespace on mobile webkit by ensuring body always fits content */
-    @supports (-webkit-touch-callout: none) {
-      html, body { height:100%; min-height:100%; }
-    }
   </style>
 </head>
 <body>
@@ -218,42 +210,37 @@
         <h2 class="section-title" id="projects-heading">Selected projects</h2>
 
         <div class="projects" aria-live="polite">
-          <!-- Piscataway robotics - team captain -->
+          <!-- Projects (unchanged content) -->
           <article class="card" tabindex="0" role="button"
             data-project='{"title":"Piscataway Robotics — Team Captain","short":"Team captain for Piscataway High School competitive robotics team.","details":"Led competitive robotics team as team captain: managed build cycles, mentored new members, coordinated strategy and matches. Worked with motor controllers, sensors, and basic autonomous routines. Learned leadership, mechanical assembly, and event preparation."}'>
             <div class="thumb" aria-hidden="true"><img src="images/robot.jpg" alt="Piscataway robotics competition robot" loading="lazy"></div>
             <div class="meta"><h3>Piscataway Robotics — Team Captain</h3><p>Team captain for Piscataway High School competitive robotics team.</p></div>
           </article>
 
-          <!-- TSA UAV Drone Challenge -->
           <article class="card" tabindex="0" role="button"
             data-project='{"title":"TSA UAV Drone Challenge — Team Captain","short":"Technology Student Association team captain for UAV Drone Challenge.","details":"Captain for a TSA UAV/drone challenge team: coordinated design, flight testing, and competition logistics. Focused on flight planning, payload considerations, and safety. Gained experience with team leadership, FAA basics, and practical drone operation."}'>
             <div class="thumb" aria-hidden="true"><img src="images/drone.jpg" alt="UAV drone on table" loading="lazy"></div>
             <div class="meta"><h3>TSA UAV Drone Challenge — Team Captain</h3><p>Technology Student Association team captain for the UAV Drone Challenge.</p></div>
           </article>
 
-          <!-- Arduino projects -->
           <article class="card" tabindex="0" role="button"
             data-project='{"title":"Arduino Weather Station & Object Radar","short":"Weather station (wind/temp/humidity) and object radar with servos and distance sensor.","details":"Built an Arduino-based weather station with wind, temperature, and humidity sensors plus an object radar using servos and an ultrasonic distance sensor. Collected sensor data, logged readings, and visualized results. Learned sensor calibration, wiring best practices, and microcontroller data processing."}'>
             <div class="thumb" aria-hidden="true"><img src="images/arduino.jpg" alt="Arduino breadboard with sensors" loading="lazy"></div>
             <div class="meta"><h3>Arduino Weather Station & Object Radar</h3><p>Weather station with wind/temp/humidity sensors and object radar using servos & distance sensor.</p></div>
           </article>
 
-          <!-- 3D printing -->
           <article class="card" tabindex="0" role="button"
             data-project='{"title":"3D Design & Printing","short":"Designing and printing parts for projects and prototypes.","details":"Created 3D models for functional parts and printed them: brackets, enclosures, and custom mounts. Iterated on tolerances and print settings. Skills: CAD modeling (exporting STL), slicing, and post-processing prints."}'>
             <div class="thumb" aria-hidden="true"><img src="images/printer.jpg" alt="3D printer and printed parts" loading="lazy"></div>
             <div class="meta"><h3>3D Design & Printing</h3><p>Designing and printing files (STL) and finishing parts for hardware projects.</p></div>
           </article>
 
-          <!-- Jellyfin server -->
           <article class="card" tabindex="0" role="button"
             data-project='{"title":"Jellyfin Media Server — VHS Archive","short":"Jellyfin server to host family movies from converted VHS tapes.","details":"Built a Jellyfin media server to host and stream family videos after converting VHS tapes. Set up media encoding, storage management, and remote access for family members. Learned about media conversion, server administration, and network configuration."}'>
             <div class="thumb" aria-hidden="true"><img src="images/jellyfin.jpg" alt="Jellyfin media server interface or server hardware" loading="lazy"></div>
             <div class="meta"><h3>Jellyfin Media Server — VHS Archive</h3><p>Created a Jellyfin server to host family videos from VHS tapes I converted.</p></div>
           </article>
 
-          <!-- Websites for businesses -->
           <article class="card" tabindex="0" role="button"
             data-project='{"title":"Websites for Businesses","short":"Built small websites for local businesses.","details":"Designed and deployed websites for local businesses: responsive layouts, contact forms, and basic SEO. Tech used: HTML, CSS, JavaScript, and simple static hosting or GitHub Pages. Focused on user experience and branding."}'>
             <div class="thumb" aria-hidden="true"><img src="images/website.jpg" alt="Screenshot of a business website" loading="lazy"></div>
@@ -299,7 +286,10 @@
   </div>
 
   <script>
-    /* Robust modal & scroll lock that prevents leftover scroll or overscroll issues */
+    /* Modal & scroll-lock:
+       - Adds 'modal-open' class to body so the background color behind the semi-transparent overlay changes.
+       - Keeps a robust scroll-lock that saves/restores scroll position.
+    */
     (function(){
       const cards = document.querySelectorAll('.card[data-project]');
       const backdrop = document.getElementById('modal-backdrop');
@@ -307,7 +297,6 @@
       const bodyEl = document.getElementById('modal-body');
       const closeBtns = [document.getElementById('modal-close'), document.getElementById('modal-close-2')];
 
-      // Track previous scroll position to restore after modal closes
       let scrollPosition = 0;
 
       function renderDetails(raw){
@@ -318,21 +307,32 @@
         titleEl.textContent = data.title || 'Project';
         bodyEl.innerHTML = renderDetails(data.details || data.short || 'No details yet');
 
-        // scroll-lock: save scroll, then lock both html and body (covers multiple browsers)
+        // Save scroll position and lock page (robust)
         scrollPosition = window.scrollY || document.documentElement.scrollTop;
+        // lock scroll by fixing html position
         document.documentElement.style.top = `-${scrollPosition}px`;
         document.documentElement.style.position = 'fixed';
         document.documentElement.style.width = '100%';
+
+        // Add modal-open class to body so background color behind overlay changes
+        document.body.classList.add('modal-open');
+
+        // show backdrop (it's semi-transparent so the body color change is visible)
         backdrop.style.display = 'flex';
         backdrop.setAttribute('aria-hidden','false');
-        // focus the close button
+
+        // focus first close button
         closeBtns[0].focus();
       }
 
       function closeModal(){
         backdrop.style.display = 'none';
         backdrop.setAttribute('aria-hidden','true');
-        // restore page scroll position
+
+        // remove modal-open class to restore original background color
+        document.body.classList.remove('modal-open');
+
+        // restore scroll position & unlock
         document.documentElement.style.position = '';
         document.documentElement.style.top = '';
         document.documentElement.style.width = '';
@@ -361,12 +361,13 @@
       closeBtns.forEach(b => b && b.addEventListener('click', closeModal));
       document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
 
-      // Additional safeguard: if modal is somehow hidden but document locked, unlock on page visibility change
+      // Safety: ensure page isn't left locked if tab visibility changes
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible' && backdrop.style.display === 'none') {
           document.documentElement.style.position = '';
           document.documentElement.style.top = '';
           document.documentElement.style.width = '';
+          document.body.classList.remove('modal-open');
         }
       });
     })();
