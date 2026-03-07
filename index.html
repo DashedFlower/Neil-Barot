@@ -3,12 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title><!-- FILL: Your Name — Projects -->Your Name — Projects</title>
+  <title>Neil Barot — Projects</title>
 
-  <!-- Meta for social previews -->
-  <meta name="description" content="<!-- FILL: Short one-line description of your projects -->A short description of my personal projects and experiments." />
+  <meta name="description" content="Neil Barot — junior at Piscataway High School. Projects in robotics, UAVs, Arduino sensors, 3D printing, media servers, and web development." />
 
-  <!-- Google Font (optional) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <style>
@@ -17,14 +15,13 @@
       --bg2: #fcb69f;
       --accent: #5e60ce;
       --accent-2: #ff6b6b;
-      --card: rgba(255,255,255,0.85);
+      --card: rgba(255,255,255,0.92);
       --muted: #6b7280;
       --radius: 12px;
       --max-width: 1100px;
       --gap: 18px;
     }
 
-    /* Reset-ish */
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -46,7 +43,7 @@
       width:100%;
       max-width:var(--max-width);
       margin:0 auto;
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.76));
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.84));
       border-radius:18px;
       box-shadow:0 20px 40px rgba(16,24,40,0.12);
       padding:28px;
@@ -56,7 +53,6 @@
       align-items:start;
     }
 
-    /* Responsive stack */
     @media (max-width:980px){
       .wrap{grid-template-columns:1fr}
     }
@@ -101,7 +97,6 @@
       margin-top:2px;
     }
 
-    /* Left column content */
     .main{
       padding-right:6px;
     }
@@ -157,7 +152,6 @@
       box-shadow:none;
     }
 
-    /* Projects grid */
     .projects{
       display:grid;
       grid-template-columns:repeat(2,1fr);
@@ -168,7 +162,7 @@
     .card{
       background:var(--card);
       border-radius:var(--radius);
-      padding:12px;
+      padding:8px;
       display:flex;
       gap:12px;
       align-items:flex-start;
@@ -180,11 +174,12 @@
     .card:hover{ transform:translateY(-4px); box-shadow:0 16px 30px rgba(12,15,20,0.08) }
 
     .thumb{
-      width:78px;height:64px;border-radius:10px;flex:0 0 78px;
+      width:78px;height:64px;border-radius:10px;flex:0 0 78px;overflow:hidden;
       display:grid;place-items:center;color:white;font-weight:700;
       background:linear-gradient(135deg, rgba(94,96,206,1), rgba(255,107,107,0.9));
       box-shadow: inset 0 -6px 18px rgba(0,0,0,0.06);
     }
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
 
     .card .meta{
       flex:1;
@@ -192,7 +187,6 @@
     .card h3{margin:0 0 6px 0;font-size:15px}
     .card p{margin:0;color:var(--muted);font-size:13px}
 
-    /* Sidebar */
     aside.sidebar{
       background:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.9));
       border-radius:12px;
@@ -234,7 +228,6 @@
       font-size:13px;
     }
 
-    /* Modal */
     .modal-backdrop{
       position:fixed;inset:0;display:none;align-items:center;justify-content:center;
       background:linear-gradient(rgba(6,6,10,0.45),rgba(6,6,10,0.45));z-index:60;padding:20px;
@@ -245,28 +238,19 @@
     .modal header{display:flex;justify-content:space-between;align-items:center;gap:12px}
     .close-btn{background:transparent;border:0;font-weight:700;font-size:16px;cursor:pointer;color:var(--muted)}
 
-    /* small helpers */
     .muted{color:var(--muted)}
     .small{font-size:13px}
     .label{font-size:12px;color:var(--muted);margin-bottom:6px;display:block}
   </style>
 </head>
 <body>
-  <!--
-    IMPORTANT: Replace visible placeholders:
-      - Title and meta description near the top
-      - Any <!-- FILL: ... --> or data-fill attributes
-      - Project cards in the Projects section
-      - Contact email in the sidebar
-  -->
-
   <div class="wrap" role="main">
     <header class="site-header" aria-label="Site header">
       <a class="brand" href="#" aria-label="Homepage">
         <div class="logo" aria-hidden="true">NB</div>
         <div>
-          <div class="site-title" data-fill="site-title">Your Name</div>
-          <div class="site-tag" data-fill="site-tag">Personal projects & experiments</div>
+          <div class="site-title">Neil Barot</div>
+          <div class="site-tag">Personal projects & experiments</div>
         </div>
       </a>
 
@@ -276,12 +260,11 @@
       </nav>
     </header>
 
-    <!-- Main column -->
     <section class="main" aria-labelledby="intro-heading">
       <div class="hero" role="region" aria-label="Intro">
         <div class="intro">
-          <h1 id="intro-heading" data-fill="hero-heading">Hi — I'm <!-- FILL: Your first name -->Your Name.</h1>
-          <p class="lead" data-fill="hero-sub">I'm a student / maker / developer. I build small apps, experiments, and projects that teach me something new.</p>
+          <h1 id="intro-heading">Hi — I'm Neil.</h1>
+          <p class="lead">I'm a junior at Piscataway High School interested in medical and engineering fields with a love for making things.</p>
 
           <div class="cta-row" role="toolbar" aria-label="Call to action">
             <a class="btn" href="#projects" aria-label="See projects">See projects</a>
@@ -289,9 +272,7 @@
           </div>
         </div>
 
-        <!-- decorative / optional -->
         <div aria-hidden="true" style="min-width:140px; text-align:center;">
-          <!-- Simple colorful SVG illustration -->
           <svg width="140" height="120" viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
             <rect x="0" y="0" width="140" height="120" rx="12" fill="url(#g)" />
             <defs>
@@ -304,67 +285,102 @@
         </div>
       </div>
 
-      <!-- About -->
       <section id="about" aria-labelledby="about-heading" style="margin-bottom:16px">
         <h2 id="about-heading" style="font-size:16px;margin:0 0 8px 0">About</h2>
-        <p class="muted small" data-fill="about-paragraph">
-          <!-- FILL: Write 1-3 sentences about yourself, what you like to build, or your focus areas -->
-          I'm a high school student interested in web development, physics, and chemistry. I enjoy building small tools and experiments that visualize concepts clearly.
+        <p class="muted small">
+          I'm a junior at Piscataway High School interested in medical and engineering fields with a love for making things — from hardware (Arduino, 3D printing) to software (websites, servers). I enjoy leading teams and building projects that solve real problems or preserve family memories.
         </p>
       </section>
 
-      <!-- Projects -->
       <section id="projects" aria-labelledby="projects-heading" style="margin-bottom:14px">
         <h2 id="projects-heading" style="font-size:16px;margin:0 0 10px 0">Projects</h2>
 
         <div class="projects" aria-live="polite">
-          <!-- Repeat / duplicate these cards for each project. Use data attributes to fill. -->
-          <article class="card" tabindex="0" role="button" data-project='{"title":"Project One","short":"A one-line summary of project one.","details":"<!-- FILL: Longer explanation about Project One. What tech, what you learned. -->Detailed info about Project One."}'>
-            <div class="thumb" aria-hidden="true">P1</div>
+          <!-- Piscataway robotics - team captain -->
+          <article class="card" tabindex="0" role="button"
+            data-project='{"title":"Piscataway Robotics — Team Captain","short":"Team captain for Piscataway High School competitive robotics team.","details":"Led competitive robotics team as team captain: managed build cycles, mentored new members, coordinated strategy and matches. Worked with motor controllers, sensors, and basic autonomous routines. Learned leadership, mechanical assembly, and event preparation."}'>
+            <div class="thumb" aria-hidden="true">
+              <img src="images/robot.jpg" alt="Piscataway robotics competition robot" loading="lazy">
+            </div>
             <div class="meta">
-              <h3 data-fill="project1-title">Project One</h3>
-              <p data-fill="project1-short">A short description of Project One. <!-- FILL: one line summary --></p>
+              <h3>Piscataway Robotics — Team Captain</h3>
+              <p>Team captain for Piscataway High School competitive robotics team.</p>
             </div>
           </article>
 
-          <article class="card" tabindex="0" role="button" data-project='{"title":"Project Two","short":"A one-line summary of project two.","details":"<!-- FILL: Longer explanation about Project Two. -->Detailed info about Project Two."}'>
-            <div class="thumb" aria-hidden="true">P2</div>
+          <!-- TSA UAV Drone Challenge -->
+          <article class="card" tabindex="0" role="button"
+            data-project='{"title":"TSA UAV Drone Challenge — Team Captain","short":"Technology Student Association team captain for UAV Drone Challenge.","details":"Captain for a TSA UAV/drone challenge team: coordinated design, flight testing, and competition logistics. Focused on flight planning, payload considerations, and safety. Gained experience with team leadership, FAA basics, and practical drone operation."}'>
+            <div class="thumb" aria-hidden="true">
+              <img src="images/drone.jpg" alt="UAV drone on table" loading="lazy">
+            </div>
             <div class="meta">
-              <h3 data-fill="project2-title">Project Two</h3>
-              <p data-fill="project2-short">A short description of Project Two. <!-- FILL: one line summary --></p>
+              <h3>TSA UAV Drone Challenge — Team Captain</h3>
+              <p>Technology Student Association team captain for the UAV Drone Challenge.</p>
             </div>
           </article>
 
-          <article class="card" tabindex="0" role="button" data-project='{"title":"Project Three","short":"A one-line summary of project three.","details":"<!-- FILL: Longer explanation about Project Three. -->Detailed info about Project Three."}'>
-            <div class="thumb" aria-hidden="true">P3</div>
+          <!-- Arduino projects -->
+          <article class="card" tabindex="0" role="button"
+            data-project='{"title":"Arduino Weather Station & Object Radar","short":"Weather station (wind/temp/humidity) and object radar with servos and distance sensor.","details":"Built an Arduino-based weather station with wind, temperature, and humidity sensors plus an object radar using servos and an ultrasonic distance sensor. Collected sensor data, logged readings, and visualized results. Learned sensor calibration, wiring best practices, and microcontroller data processing."}'>
+            <div class="thumb" aria-hidden="true">
+              <img src="images/arduino.jpg" alt="Arduino breadboard with sensors" loading="lazy">
+            </div>
             <div class="meta">
-              <h3 data-fill="project3-title">Project Three</h3>
-              <p data-fill="project3-short">A short description of Project Three. <!-- FILL: one line summary --></p>
+              <h3>Arduino Weather Station & Object Radar</h3>
+              <p>Weather station with wind/temp/humidity sensors and object radar using servos & distance sensor.</p>
             </div>
           </article>
 
-          <article class="card" tabindex="0" role="button" data-project='{"title":"Project Four","short":"A one-line summary of project four.","details":"<!-- FILL: Longer explanation about Project Four. -->Detailed info about Project Four."}'>
-            <div class="thumb" aria-hidden="true">P4</div>
+          <!-- 3D printing -->
+          <article class="card" tabindex="0" role="button"
+            data-project='{"title":"3D Design & Printing","short":"Designing and printing parts for projects and prototypes.","details":"Created 3D models for functional parts and printed them: brackets, enclosures, and custom mounts. Iterated on tolerances and print settings. Skills: CAD modeling (exporting STL), slicing, and post-processing prints."}'>
+            <div class="thumb" aria-hidden="true">
+              <img src="images/printer.jpg" alt="3D printer and printed parts" loading="lazy">
+            </div>
             <div class="meta">
-              <h3 data-fill="project4-title">Project Four</h3>
-              <p data-fill="project4-short">A short description of Project Four. <!-- FILL: one line summary --></p>
+              <h3>3D Design & Printing</h3>
+              <p>Designing and printing files (STL) and finishing parts for hardware projects.</p>
+            </div>
+          </article>
+
+          <!-- Jellyfin server -->
+          <article class="card" tabindex="0" role="button"
+            data-project='{"title":"Jellyfin Media Server — VHS Archive","short":"Jellyfin server to host family movies from converted VHS tapes.","details":"Built a Jellyfin media server to host and stream family videos after converting VHS tapes. Set up media encoding, storage management, and remote access for family members. Learned about media conversion, server administration, and network configuration."}'>
+            <div class="thumb" aria-hidden="true">
+              <img src="images/jellyfin.jpg" alt="Media server rack or Jellyfin interface" loading="lazy">
+            </div>
+            <div class="meta">
+              <h3>Jellyfin Media Server — VHS Archive</h3>
+              <p>Created a Jellyfin server to host family videos from VHS tapes I converted.</p>
+            </div>
+          </article>
+
+          <!-- Websites for businesses -->
+          <article class="card" tabindex="0" role="button"
+            data-project='{"title":"Websites for Businesses","short":"Built small websites for local businesses.","details":"Designed and deployed websites for local businesses: responsive layouts, contact forms, and basic SEO. Tech used: HTML, CSS, JavaScript, and simple static hosting or GitHub Pages. Focused on user experience and branding."}'>
+            <div class="thumb" aria-hidden="true">
+              <img src="images/website.jpg" alt="Screenshot of a business website" loading="lazy">
+            </div>
+            <div class="meta">
+              <h3>Websites for Businesses</h3>
+              <p>Making websites for businesses — from basic landing pages to small multi-page sites.</p>
             </div>
           </article>
         </div>
       </section>
 
       <footer class="site-footer" aria-label="Footer note">
-        <div>Made by <strong data-fill="footer-name">Your Name</strong> • <span class="small muted">Feel free to customize this page</span></div>
+        <div>Made by <strong>Neil Barot</strong> • <span class="small muted">Feel free to customize this page</span></div>
       </footer>
     </section>
 
-    <!-- Sidebar -->
     <aside class="sidebar" aria-labelledby="profile-heading">
       <div class="profile">
-        <div class="avatar" aria-hidden="true">YN</div>
+        <div class="avatar" aria-hidden="true">NB</div>
         <div class="who">
-          <div style="font-weight:700" data-fill="sidebar-name">Your Name</div>
-          <small data-fill="sidebar-role">Student • Developer • Maker</small>
+          <div style="font-weight:700">Neil Barot</div>
+          <small>Junior • Developer • Maker</small>
         </div>
       </div>
 
@@ -374,8 +390,9 @@
           <span class="skill">HTML</span>
           <span class="skill">CSS</span>
           <span class="skill">JavaScript</span>
-          <span class="skill">Python</span>
-          <!-- FILL: add more skills -->
+          <span class="skill">Arduino</span>
+          <span class="skill">CAD / 3D</span>
+          <span class="skill">Server Admin</span>
         </div>
       </div>
 
@@ -384,13 +401,11 @@
         <div class="contact">
           <div class="small muted">Email</div>
           <div style="margin-top:4px">
-            <!-- FILL: replace with your email address -->
-            <a href="mailto:your.email@example.com" style="font-weight:600;color:var(--accent)">your.email@example.com</a>
+            <a href="mailto:neilbarot9@gmail.com" style="font-weight:600;color:var(--accent)">neilbarot9@gmail.com</a>
           </div>
 
           <div style="margin-top:10px" class="small muted">Social</div>
           <div style="margin-top:6px">
-            <!-- Optional: replace hrefs with your profiles -->
             <a class="small" href="#" style="display:inline-block;margin-right:8px;color:var(--muted)">GitHub</a>
             <a class="small" href="#" style="display:inline-block;margin-right:8px;color:var(--muted)">LinkedIn</a>
             <a class="small" href="#" style="display:inline-block;color:var(--muted)">Twitter</a>
@@ -400,7 +415,6 @@
     </aside>
   </div>
 
-  <!-- Modal (hidden by default) -->
   <div id="modal-backdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal" role="document" aria-labelledby="modal-title">
       <header>
@@ -417,7 +431,6 @@
   </div>
 
   <script>
-    // Simple accessible modal behavior for project cards
     (function(){
       const cards = document.querySelectorAll('.card[data-project]');
       const backdrop = document.getElementById('modal-backdrop');
@@ -427,11 +440,13 @@
 
       function openModal(data){
         titleEl.textContent = data.title || 'Project';
-        // keep HTML in details (allows you to paste formatted text) but sanitize in production
-        bodyEl.innerHTML = data.details || data.short || 'No details yet';
+        // details are plain text in the provided data; allow simple line breaks
+        bodyEl.textContent = data.details || data.short || 'No details yet';
+        // convert simple line breaks to paragraphs for readability
+        bodyEl.innerHTML = (data.details || data.short || 'No details yet').split("\\n").map(s => '<p style="margin:6px 0;color:var(--muted)">'+s+'</p>').join('');
         backdrop.style.display = 'flex';
         backdrop.setAttribute('aria-hidden','false');
-        // trap focus minimally
+        // minimal focus trap
         closeBtns[0].focus();
       }
 
