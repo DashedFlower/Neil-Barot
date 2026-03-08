@@ -4,10 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Neil Barot — Projects</title>
-
   <meta name="description" content="Neil Barot — projects in robotics, UAVs, Arduino sensors, 3D printing, media servers, and web development." />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-
   <style>
     :root{
       --page-bg: #042b5f;
@@ -51,12 +49,13 @@
       display:grid;
       grid-template-columns: 1fr 360px;
       gap: var(--gap);
-      box-shadow: 0 30px 90px rgba(2,6,23,0.6);
       background: rgba(255,255,255,0.02);
-      padding:32px;
+      padding:36px;
       position:relative;
       z-index:1;
       align-items:start;
+      /* avoid container shadow visually colliding with tiles */
+      box-shadow: 0 18px 40px rgba(2,6,23,0.45);
     }
     @media (max-width:980px){
       .wrap{grid-template-columns:1fr;padding:22px;gap:20px}
@@ -69,10 +68,10 @@
       flex-direction:column;
       align-items:center;
       gap:18px;
-      padding:18px;
+      padding:22px;
       border-radius:12px;
       border:1px solid var(--card-border);
-      margin-bottom:4px;
+      margin-bottom:32px; /* bigger space after hero */
       background: rgba(255,255,255,0.01);
       text-align:center;
     }
@@ -89,17 +88,18 @@
     .pills{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:8px }
     .pill{ padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:13px;color:var(--muted); border:1px solid rgba(255,255,255,0.02); }
 
-    /* ----- TILE styling: increased spacing + softer shadow ----- */
+    /* TILE: separation and stacking isolation so shadows won't bleed between tiles */
     .tile{
       background: rgba(255,255,255,0.01);
       border-radius:12px;
       padding:18px;
       border:1px solid var(--card-border);
-      /* Softer, smaller shadow so it doesn't visually 'bleed' into the next tile */
-      box-shadow: 0 8px 22px rgba(2,6,15,0.14);
-      margin-bottom:36px;          /* Increased spacing between tiles */
+      /* softer, smaller shadow */
+      box-shadow: 0 8px 18px rgba(2,6,15,0.12);
+      margin-bottom:56px;       /* larger spacing to prevent any overlap */
       position:relative;
       z-index:1;
+      isolation:isolate;        /* create separate stacking context */
     }
 
     /* Main column */
@@ -107,16 +107,16 @@
 
     h2.section-title{ margin:0 0 12px 0; font-size:16px; font-weight:700; color:var(--text) }
 
-    /* Ensure the projects header is visually above any subtle shadow */
+    /* Ensure the projects header is above tile surfaces */
     .tile .section-title{ position:relative; z-index:2; display:inline-block; background:transparent; padding-right:6px; }
 
     .projects{
       display:grid;
       grid-template-columns:repeat(2,1fr);
       gap:18px;
-      margin-top:8px; /* small breathing room inside the projects tile */
+      margin-top:12px; /* breathing room inside the tile */
       position:relative;
-      z-index:2; /* put project cards above the tile shadow layer-wise */
+      z-index:2;
     }
     @media (max-width:760px){ .projects{ grid-template-columns:1fr; } }
 
@@ -154,7 +154,7 @@
       display:flex;
       flex-direction:column;
       gap:14px;
-      z-index:4; /* ensure sidebar sits above tiles but cards have higher z on hover */
+      z-index:4;
       align-self:start;
       min-height:80px;
     }
@@ -163,7 +163,7 @@
     .name{ font-weight:800; font-size:18px; color:var(--text) }
     .role{ color:var(--muted); font-size:13px; margin-top:4px }
 
-    /* modal */
+    /* modal/backdrop */
     .modal-backdrop{
       position:fixed;
       inset:0;
@@ -191,7 +191,7 @@
     .muted{ color:var(--muted) }
     .small{ font-size:13px }
 
-    /* Safety for mobile browsers */
+    /* Mobile spacing safeguard */
     @supports (-webkit-touch-callout: none) {
       html, body { height:100%; min-height:100%; }
     }
@@ -297,7 +297,6 @@
       const titleEl = document.getElementById('modal-title');
       const bodyEl = document.getElementById('modal-body');
       const closeBtns = [document.getElementById('modal-close'), document.getElementById('modal-close-2')];
-
       let scrollPosition = 0;
 
       function renderDetails(raw){
@@ -307,16 +306,13 @@
       function openModal(data){
         titleEl.textContent = data.title || 'Project';
         bodyEl.innerHTML = renderDetails(data.details || data.short || 'No details yet');
-
         scrollPosition = window.scrollY || document.documentElement.scrollTop;
         document.documentElement.style.top = `-${scrollPosition}px`;
         document.documentElement.style.position = 'fixed';
         document.documentElement.style.width = '100%';
-
         document.body.classList.add('modal-open');
         backdrop.style.display = 'flex';
         backdrop.setAttribute('aria-hidden','false');
-
         closeBtns[0].focus();
       }
 
@@ -324,7 +320,6 @@
         backdrop.style.display = 'none';
         backdrop.setAttribute('aria-hidden','true');
         document.body.classList.remove('modal-open');
-
         document.documentElement.style.position = '';
         document.documentElement.style.top = '';
         document.documentElement.style.width = '';
